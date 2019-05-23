@@ -7,12 +7,15 @@ const glob = require('glob')
 const {app,BrowserWindow}= require('electron')
 
 const debug = /--debug/.test(process.argv[2])
-if (process.mas) app.setName('JWT App')
+if (process.mas) app.setName('JsonWebToken App')
 
+app.setName('JsonWebToken App')
 let mainWindow = null
 //initialize
 function initialize() {
   makeSingleInstance()
+
+  loadFiles()
 
   function createWindow () {
     const windowOptions = {
