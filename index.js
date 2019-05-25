@@ -22,7 +22,7 @@ function initialize() {
       width: 1080,
       minWidth: 680,
       height: 840,
-      frame: false,
+      frame: true,
       title: app.getName(),
       webPreferences: {
         nodeIntegration: true
@@ -32,7 +32,7 @@ function initialize() {
   /*  if (process.platform === 'linux') {
       windowOptions.icon = path.join(__dirname, '/assets/app-icon/png/512.png')
     }*/
-    mainWindow = new BrowserWindow({windowOptions})
+    mainWindow = new BrowserWindow(windowOptions)
     mainWindow.loadURL(path.join('file://', __dirname,'index.html'))
 
     app.on('closed', () => {
