@@ -3,15 +3,15 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-		<link rel="stylesheet" href="assets/css/bootstrap.min.css">
-		 <link rel="stylesheet" href="assets/css/global.css">
+		<link rel="stylesheet" xlink:href="application/assets/css/bootstrap.min.css">
+		 <link rel="stylesheet" xlink:href="application/assets/css/global.css">
 		 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 		<title>JsonWebToken App</title>
 	</head>
 	<body>
 		<nav class="navbar navbar-dark bg-dark">
 			<a class="navbar-brand" href="#">
-				<img src="assets/img/app_icons/connectdevelop-brands.svg" width="30px" height="30px" class="d-inline-block align-top" alt="">
+				<img src="file://application/assets/img/app_icons/connectdevelop-brands.svg" width="30px" height="30px" class="d-inline-block align-top" alt="">
 				JsonWebToken
 			</a>
 			<div class="collaspe navbar-collaspe" id="navbarNavDropdown">
@@ -31,16 +31,24 @@
 				</ul>
 			</div>
 		</nav>
-    <div class="">
-
+    <div class="container">
+        <form class="" action="" method="post">
+          <input type="textarea" name="jwt" id="jwt" rows="8" cols="80">
+        </form>
     </div>
 	<!--Bootstrap js component running out of cdn-->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.min.js"></script>
-		<script src="./assets/bootstrap.min.js"></script>
-		<script src="./assets/bootstrap.js"></script>
-		<!--<script src="./assets/jquery.js"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+      //get electron inside
+      const {app,remote} = require('electron')
+      const path = require('path')
+        let AppPath = remote.app.getAppPath()
+        let decode = path.join(AppPath,'application/application_js/decode.js')
+        require(decode)
+    </script>
 	</body>
 </html>
