@@ -4,7 +4,7 @@ require('update-electron-app')({
 
 const path = require('path')
 const glob = require('glob')
-const {app,BrowserWindow}= require('electron')
+const {app,BrowserWindow,ipcMain}= require('electron')
 
 const debug = /--debug/.test(process.argv[2])
 if (process.mas) app.setName('JsonWebToken App')
@@ -71,7 +71,7 @@ function makeSingleInstance () {
 
 // Require each JS file in the main-process dir
 function loadFiles () {
-  const files = glob.sync(path.join(__dirname, 'application/**/*.js'))
+  const files = glob.sync(path.join(__dirname, 'main-process/**/*.js'))
   files.forEach((file) => { require(file) })
 }
 initialize()

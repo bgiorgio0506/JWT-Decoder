@@ -3,8 +3,8 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-		<link rel="stylesheet" href="assets/css/bootstrap.min.css">
-		 <link rel="stylesheet" href="assets/css/global.css">
+		<link rel="stylesheet" href="application/assets/css/bootstrap.min.css">
+		 <link rel="stylesheet" href="application/assets/css/global.css">
 		 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 		<title>JsonWebToken App</title>
 	</head>
@@ -20,27 +20,34 @@
 						<a class="nav-link" href="index.html">About</a>
 					</li>
 					<li class="nav-item dropdown">
-			 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			 <a class="nav-link dropdown-toggle" href="index.html" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				 Actions
 			 </a>
 			 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-				 <a class="dropdown-item" href="#">Create JWT</a>
-				 <a class="dropdown-item" href="#">Decode JWT</a>
+				 <a class="dropdown-item" href="create.html">Create JWT</a>
+				 <a class="dropdown-item" href="decode.html">Decode JWT</a>
 			 </div>
 		 </li>
 				</ul>
 			</div>
 		</nav>
     <div class="">
-      
+
     </div>
 	<!--Bootstrap js component running out of cdn-->
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.min.js"></script>
-		<script src="./assets/bootstrap.min.js"></script>
-		<script src="./assets/bootstrap.js"></script>
-		<!--<script src="./assets/jquery.js"></script>-->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+	//bring in packeges
+		const {app, remote} = require('electron')
+		const path = require('path');
+
+		let AppPath = remote.app.getAppPath()
+		let create = path.join(AppPath,'main-process/create/create.js')
+		require(create)
+	</script>
 	</body>
 </html>

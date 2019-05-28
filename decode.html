@@ -20,12 +20,12 @@
 						<a class="nav-link" href="index.html">About</a>
 					</li>
 					<li class="nav-item dropdown">
-			 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			 <a class="nav-link dropdown-toggle" href="index.html" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				 Actions
 			 </a>
 			 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-				 <a class="dropdown-item" href="#">Create JWT</a>
-				 <a class="dropdown-item" href="#">Decode JWT</a>
+				 <a class="dropdown-item" href="create.html">Create JWT</a>
+				 <a class="dropdown-item" href="decode.html">Decode JWT</a>
 			 </div>
 		 </li>
 				</ul>
@@ -45,26 +45,31 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script type="text/javascript">
       //require the main backend file
-      const {app,BrowserWindow,remote,ipcRenderer} = require('electron')
+      const {app,BrowserWindow,remote,ipcRenderer,dialog} = require('electron')
       const path = require('path')
       let AppPath = remote.app.getAppPath()
 
       //requiring core files
-        let decode = path.join(AppPath,'application/application_js/decode.js')
-        require(decode)
+        //let decode = path.join(AppPath,'main-process/decode.js')
+      	//require(decode)
 
       //send the event on submit
         document.querySelector('#jwtsub').addEventListener('click',function(){
           let jwt = document.getElementById('jwt').value
-          //lets send it via the ipcRenderer
-          ipcRenderer.send('asynchronous-message', jwt)
+					//lets check what the user send
+					if (jwt === ''){
+						ipcRenderer.send('error-generic','No JWT specified')
+					}else {
+						//lets send it via the ipcRenderer
+	          ipcRenderer.send('asynchronous-message', jwt)
+					}
         })
 
       //listening for event from the "server"
       ipcRenderer.on('asynchronous-reply',(event,arg)=>{
         const notification = {
           title: 'message',
-          body: 'messaggio arrivato'
+          body: 'jwt decodificato con successo'
         }
         const myNotification = new window.Notification(notification.title,notification)
 
@@ -72,6 +77,11 @@
         console.log('Cliccata');
         }
       })
+
+			//if an invalid token exeption is begin throw by the main process
+			ipcRenderer.on('unexpected-token', (event)=> {
+				ipcRenderer.send('error-generic','Unexpected JSNO Web Token format')
+			})
     </script>
 	</body>
 </html>
