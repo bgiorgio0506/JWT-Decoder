@@ -48,11 +48,6 @@
       const {app,BrowserWindow,remote,ipcRenderer,dialog} = require('electron')
       const path = require('path')
       let AppPath = remote.app.getAppPath()
-
-      //requiring core files
-        //let decode = path.join(AppPath,'main-process/decode.js')
-      	//require(decode)
-
       //send the event on submit
         document.querySelector('#jwtsub').addEventListener('click',function(){
           let jwt = document.getElementById('jwt').value

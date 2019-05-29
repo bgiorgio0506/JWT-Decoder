@@ -11,7 +11,7 @@
 	<body>
 		<nav class="navbar navbar-dark bg-dark">
 			<a class="navbar-brand" href="#">
-				<img src="assets/img/app_icons/connectdevelop-brands.svg" width="30px" height="30px" class="d-inline-block align-top" alt="">
+				<img src="application/assets/img/app_icons/connectdevelop-brands.svg" width="30px" height="30px" class="d-inline-block align-top" alt="">
 				JsonWebToken
 			</a>
 			<div class="collaspe navbar-collaspe" id="navbarNavDropdown">
@@ -32,7 +32,20 @@
 			</div>
 		</nav>
     <div class="">
-
+				<form class="" id="create" action="" method="post">
+					<p>Create a JSON Web Token</p>
+					<input type="text" id ="algo" name="algorithm" value="" placeholder="algorithm">
+					<input type="text" id= "payload" name="" value="Custom payload json format">
+					<p>Optianal Payload</p>
+					<input type="text" id="iss" name="" value="" placeholder="issuer">
+					<p>expiration</p>
+					<input type="time" id="exp" name="" value="">
+					<br>
+					<input type="text" id="aud" name="" value="" placeholder="audience">
+					<input type="text" id="key" name="" value="" placeholder="Secret RSA key or verify key">
+					<br>
+					<input type="submit" id="jwtsign" name="" value="Create">
+				</form>
     </div>
 	<!--Bootstrap js component running out of cdn-->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -42,12 +55,40 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 	<script type="text/javascript">
 	//bring in packeges
-		const {app, remote} = require('electron')
-		const path = require('path');
+		const {app, ipcRenderer} = require('electron')
+		//process the time coming from the time input
+		function GetSecond(exp) {
+			var str = exp
+			let times = str.split(":")
+			times.reverse()
+			var x = times.length
+			var y = 0, z
+			for (var i = 0; i < x; i++) {
+				z = times[i] * Math.pow(60, i);
+ 				y += z;
+			}
+			return y
+		}
+		//takes data from the form
+		document.querySelector('#jwtsign').addEventListener('click', function () {
+			var algo = document.getElementById('algo').value
+			var payload = document.getElementById('payload').value
+			var iss = document.getElementById('iss').value
+			var exp = document.getElementById('exp').value
+			exp = GetSecond(exp)
+			var audience = document.getElementById('aud').value
+			var key = document.getElementById('key').value
+			//set up the option object
+			let options = {
+				algorithm:algo
+			}
+			if(options === null){
+				ipcRenderer.send('error-generic','Unexpected Error in your JWT setup')
+			}else {
+				ipcRenderer.send('asynchronous-message',key,payload, options, exp, iss)
+			}
+		})
 
-		let AppPath = remote.app.getAppPath()
-		let create = path.join(AppPath,'main-process/create/create.js')
-		require(create)
 	</script>
 	</body>
 </html>

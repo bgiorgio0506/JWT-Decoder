@@ -17,8 +17,3 @@ ipcMain.on('asynchronous-message', (event, arg) => {
       event.sender.send('asynchronous-reply',decoded)
   }
 })
-//error case
-ipcMain.on('error-generic', (event, arg) =>{
-  console.log(`Error: ${arg}`)
-  dialog.showErrorBox('An Error Accured',arg)
-})
