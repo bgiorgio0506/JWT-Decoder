@@ -35,7 +35,7 @@
 				<form class="" id="create" action="" method="post">
 					<p>Create a JSON Web Token</p>
 					<input type="text" id ="algo" name="algorithm" value="" placeholder="algorithm">
-					<input type="text" id= "payload" name="" value="Custom payload json format">
+					<input type="text" id= "payload" name="" value='{foo:"bar"}' required>
 					<p>Optianal Payload</p>
 					<input type="text" id="iss" name="" value="" placeholder="issuer">
 					<p>expiration</p>
@@ -69,6 +69,43 @@
 			}
 			return y
 		}
+
+		function createJsonObject(algo,payload,iss,exp,audience,key, options,ipcRenderer) {
+			let jwt = {
+				algorithm: null,
+				payload:payload,
+				iss:"secure.giorgio.net",
+				exp:"36000",
+				aud:"tutti",
+				key:"shhhhhh",
+			}
+			//var checks
+			if(options){
+				jwt.algorithm = algo
+			}
+
+			if(iss != undefined || iss != '' ){
+				jwt.iss = iss
+			}
+
+			if(exp != undefined || exp != null){
+				jwt.exp = exp
+			}
+
+			if(aud != undefined || aud != '' ){
+				jwt.aud = audience
+			}
+
+			if(options == false && key == undefined || key == ''){
+				ipcRenderer.send('info-generic','No key is indicated in the field we will use a default one "shhhhhh"')
+				ipcRenderer.on('info-answer', (event,index)=>{
+					if(index == 0){
+						ipcRenderer.on('error-generic','You must insert a key')
+					}
+				})
+			}
+			return jwt
+		}
 		//takes data from the form
 		document.querySelector('#jwtsign').addEventListener('click', function () {
 			var algo = document.getElementById('algo').value
@@ -78,15 +115,16 @@
 			exp = GetSecond(exp)
 			var audience = document.getElementById('aud').value
 			var key = document.getElementById('key').value
-			//set up the option object
-			let options = {
-				algorithm:algo
-			}
-			if(options === null){
-				ipcRenderer.send('error-generic','Unexpected Error in your JWT setup')
-			}else {
-				ipcRenderer.send('asynchronous-message',key,payload, options, exp, iss)
-			}
+
+				//checks for options
+				let options = false
+				if(algo != undefined || algo != '' || algo != null ){
+					options = true
+				}
+
+				let jwt = createJsonObject(algo,payload,iss,exp,audience,key,options,ipcRenderer)
+				//send
+				ipcRenderer.send('asynchronous-message',jwt)
 		})
 
 	</script>
