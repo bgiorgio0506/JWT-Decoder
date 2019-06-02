@@ -31,10 +31,11 @@
 				</ul>
 			</div>
 		</nav>
-    <div class="container">
+    <div class="center-less-pad">
         <form class="" action="" method="post">
+					<p> Decode JSON Web Token </p>
           <input type="textarea" name="jwt" id="jwt" rows="8" cols="80">
-          <input type="submit" id= "jwtsub" name="submit" value="decode">
+          <input type="submit"  class="btn btn-primary" id= "jwtsub" name="submit" value="decode">
         </form>
     </div>
 	<!--Bootstrap js component running out of cdn-->
@@ -44,6 +45,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script type="text/javascript">
+
       //require the main backend file
       const {app,BrowserWindow,remote,ipcRenderer,dialog} = require('electron')
       const path = require('path')
@@ -55,7 +57,7 @@
 					if (jwt === ''){
 						ipcRenderer.send('error-generic','No JWT specified')
 					}else {
-						//lets send it via the ipcRenderer
+					//lets send it via the ipcRenderer
 	          ipcRenderer.send('asynchronous-message', jwt)
 					}
         })
@@ -64,7 +66,7 @@
       ipcRenderer.on('asynchronous-reply',(event,arg)=>{
         const notification = {
           title: 'message',
-          body: 'jwt decodificato con successo'
+          body: 'jwt decoded successfully'
         }
         const myNotification = new window.Notification(notification.title,notification)
 

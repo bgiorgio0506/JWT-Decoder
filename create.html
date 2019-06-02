@@ -31,20 +31,23 @@
 				</ul>
 			</div>
 		</nav>
-    <div class="">
+    <div class="center">
 				<form class="" id="create" action="" method="post">
 					<p>Create a JSON Web Token</p>
 					<input type="text" id ="algo" name="algorithm" value="" placeholder="algorithm">
+					<br>
 					<input type="text" id= "payload" name="" value='{foo:"bar"}' required>
-					<p>Optianal Payload</p>
+					<p>Options</p>
 					<input type="text" id="iss" name="" value="" placeholder="issuer">
 					<p>expiration</p>
 					<input type="time" id="exp" name="" value="">
 					<br>
 					<input type="text" id="aud" name="" value="" placeholder="audience">
-					<input type="text" id="key" name="" value="" placeholder="Secret RSA key or verify key">
 					<br>
-					<input type="submit" id="jwtsign" name="" value="Create">
+					<input type="text" id="key" name="" value="" placeholder="Secret RSA key or verify key">
+
+					<br>
+					<input type="submit" class="btn btn-primary" id="jwtsign" name="submit" value="Create">
 				</form>
     </div>
 	<!--Bootstrap js component running out of cdn-->
@@ -70,6 +73,7 @@
 			return y
 		}
 
+		//Create an object to send in the main process
 		function createJsonObject(algo,payload,iss,exp,audience,key, options,ipcRenderer) {
 			let jwt = {
 				algorithm: null,
@@ -124,7 +128,7 @@
 
 				let jwt = createJsonObject(algo,payload,iss,exp,audience,key,options,ipcRenderer)
 				//send
-				ipcRenderer.send('asynchronous-message',jwt)
+				ipcRenderer.send('asynchronous-message1',jwt)
 		})
 
 	</script>

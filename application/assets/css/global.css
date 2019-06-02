@@ -119,6 +119,18 @@ pre, code {
     font-family: 'Roboto Mono',Menlo;
 }
 
+.center{
+  position: relative;
+  align-items: center;
+  padding: 400px 400px;
+  border-width: 5px;
+  border-radius: 8px;
+}
+.center-less-pad{
+  position: relative;
+  align-items: center;
+  padding: 200px 200px;
+}
 
 
 /* Utilities ---------------------------- */
